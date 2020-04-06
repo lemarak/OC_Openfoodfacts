@@ -62,6 +62,25 @@ class DataBaseOC:
             except ValueError:
                 print("Command skipped:", sql)
 
+    def insert_json(self, table, json_to_insert):
+        """
+            Insert a json in the table
+            structure of json :
+            {'field_table':'value_to_insert'}
+        """
+        fields = ",".join(json_to_insert.keys())
+        values = [str(value) for key, value in json_to_insert.items()]
+        values = "%s" % values
+        values = values[1:-1]
+        query = "INSERT INTO %s(%s) VALUES (%s)" % (
+            table, fields, values
+        )
+        try:
+            self.cursor.execute(query)
+            self._con.commit()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+
 
 def main():
     """
