@@ -62,6 +62,7 @@ class DataBaseOC:
             except ValueError:
                 print("Command skipped:", sql)
 
+    # obsolète
     def insert_json(self, table, json_to_insert):
         """
             Insert a json in the table
@@ -75,6 +76,20 @@ class DataBaseOC:
         query = "INSERT INTO %s(%s) VALUES (%s)" % (
             table, fields, values
         )
+        try:
+            self.cursor.execute(query)
+            self._con.commit()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+
+    def insert_multi_rows(self, data):
+        if not data:
+            return "Aucun élément à insérer"
+        table = data[0].TABLE
+        sql_values = ",".join(
+            [element.values_in_sql for element in data]
+        )
+        query = "INSERT INTO %s VALUES %s" % (table, sql_values)
         try:
             self.cursor.execute(query)
             self._con.commit()

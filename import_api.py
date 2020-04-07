@@ -4,9 +4,11 @@ script to import data from API
 and fill the bdd
 """
 import requests
-import json
 
 from db.database import DataBaseOC
+from openfoodfacts.category import Category
+from openfoodfacts.product import Product
+
 from common import config as c
 
 
@@ -25,19 +27,31 @@ def main():
     res = requests.get('https://fr.openfoodfacts.org/categories.json')
     print("Status code:", res.status_code)
     contents = res.json()
-    for content in contents['tags']:
+    categories = [Category(**content) for content in contents['tags']
+                  if content['id'] in c.CATEGORIES_VISIBLE]
+    print(len(categories))
+    my_db.insert_multi_rows(categories)
 
-        # clean the json for insert
-        content['id_category'] = content.pop('id')
-        content['nb_products'] = content.pop('products')
-        del content['known']
-        if 'sameAs' in content:
-            del content['sameAs']
+    # products by category
+    for category in categories:
+        str_requests = "https://fr.openfoodfacts.org/cgi/search.pl? \
+                          action=process& \
+                          tagtype_0=categories& \
+                          tag_contains_0=contains& \
+                          tag_0=%s& \
+                          sort_by=unique_scans_n& \
+                          page_size=20& \
+                          json=1& \
+                          page=1" % (category.id_category)
+        res = requests.get(str_requests.replace(" ", ""))
+        print("Status code:", res.status_code)
+        contents = res.json()
+        products = [Product(**content) for content in contents['products']
+                    if Product.check_all_fields(content)]
+        my_db.insert_multi_rows(products)
 
-        # test if the category must be visible
-        if content['id_category'] in c.CATEGORIES_VISIBLE:
-            content['visible'] = 1
-        my_db.insert_json('categories', content)
+        # insert into cat_prod
+
 
 
 if __name__ == "__main__":
