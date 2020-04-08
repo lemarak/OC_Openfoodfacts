@@ -4,6 +4,7 @@ Class to implement database
 """
 
 import mysql.connector
+from mysql.connector import Error
 
 
 class DataBaseOC:
@@ -19,7 +20,7 @@ class DataBaseOC:
         self._dbname = connect_params['database']
 
         self.connect()
-        self.cursor = self._con.cursor()
+        self.cursor = self._con.cursor(dictionary=True)
 
     def __repr__(self):
         string_format = "Host:{}, db:{}, user:{}".format(self._host,
@@ -82,10 +83,11 @@ class DataBaseOC:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
-    def insert_multi_rows(self, data):
+    def insert_multi_rows(self, data, table=None):
         if not data:
             return "Aucun élément à insérer"
-        table = data[0].TABLE
+        if table is None:
+            table = data[0].TABLE
         sql_values = ",".join(
             [element.values_in_sql for element in data]
         )
@@ -95,6 +97,19 @@ class DataBaseOC:
             self._con.commit()
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
+
+    def get_rows(self, table, query=None, order_by=None):
+        if query is None:
+            query = "SELECT * FROM %s " % table
+        if order_by is not None:
+            query += " ORDER BY %s" % order_by
+        try:
+            self.cursor.execute(query)
+            records = self.cursor.fetchall()
+            return records
+        except Error as error_text:
+            print("Error reading data from MySQL table", error_text)
+            return False
 
 
 def main():

@@ -8,6 +8,7 @@ import requests
 from db.database import DataBaseOC
 from openfoodfacts.category import Category
 from openfoodfacts.product import Product
+from openfoodfacts.category import CatProd
 
 from common import config as c
 
@@ -25,11 +26,10 @@ def main():
 
     # all categories
     res = requests.get('https://fr.openfoodfacts.org/categories.json')
-    print("Status code:", res.status_code)
+    print("Categories - Status code:", res.status_code)
     contents = res.json()
     categories = [Category(**content) for content in contents['tags']
                   if content['id'] in c.CATEGORIES_VISIBLE]
-    print(len(categories))
     my_db.insert_multi_rows(categories)
 
     # products by category
@@ -44,14 +44,21 @@ def main():
                           json=1& \
                           page=1" % (category.id_category)
         res = requests.get(str_requests.replace(" ", ""))
-        print("Status code:", res.status_code)
+        print("Products from {} - Status code: {}".format(
+            category.name,
+            res.status_code))
         contents = res.json()
-        products = [Product(**content) for content in contents['products']
+        products = [Product(**content)
+                    for content in contents['products']
                     if Product.check_all_fields(content)]
         my_db.insert_multi_rows(products)
 
         # insert into cat_prod
-
+        cat_prod = [CatProd(
+            **{"id_category": category.id_category,
+               "id_product": product.id_product})
+                    for product in products]
+        my_db.insert_multi_rows(cat_prod)
 
 
 if __name__ == "__main__":

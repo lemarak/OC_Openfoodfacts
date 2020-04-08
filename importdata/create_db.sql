@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `oc_openfoodfacts`.`categories` ;
 CREATE TABLE IF NOT EXISTS `oc_openfoodfacts`.`categories` (
   `id_category` VARCHAR(150) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
-  `nb_products` INT NULL,
+  `products` INT NULL,
   `url` VARCHAR(255) NULL,
   `visible` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`id_category`))
@@ -30,12 +30,12 @@ DROP TABLE IF EXISTS `oc_openfoodfacts`.`products` ;
 
 CREATE TABLE IF NOT EXISTS `oc_openfoodfacts`.`products` (
   `id_product` VARCHAR(15) NOT NULL,
-  `name` VARCHAR(150) NOT NULL,
+  `product_name_fr` VARCHAR(150) NOT NULL,
   `nutriscore_score` INT NULL,
   `nutriscore_grade` CHAR(1) NULL,
-  `magasins` VARCHAR(255) NULL,
-  `description` TINYTEXT NULL,
-  `brand` VARCHAR(100) NULL,
+  `stores` VARCHAR(255) NULL,
+  `generic_name_fr` MEDIUMTEXT NULL,
+  `brands` VARCHAR(100) NULL,
   PRIMARY KEY (`id_product`))
 ENGINE = InnoDB;
 

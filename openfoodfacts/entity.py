@@ -8,7 +8,7 @@ class Entity:
     FIELDS_FROM_API = []
 
     def __init__(self):
-        self.name = ""
+        self.name = "name"
 
     def __repr__(self):
         return "name: {}".format(self.name)

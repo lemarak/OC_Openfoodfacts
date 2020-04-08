@@ -19,7 +19,7 @@ def main():
     my_db = DataBaseOC(**param_connect)
 
     print(my_db)
-    my_db.execute_script('common/create_db.sql')
+    my_db.execute_script('importdata/create_db.sql')
     print('**** La base est créée ****')
 
 

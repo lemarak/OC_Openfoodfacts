@@ -13,16 +13,16 @@ DB_NAME = 'oc_openfoodfacts'
 # Fields
 FIELDS_CATEGORY = ['id_category',
                    'name',
-                   'nb_products',
+                   'products',
                    'url',
                    'visible']
 FIELDS_PRODUCTS = ['id_product',
-                   'name',
+                   'product_name_fr',
                    'nutriscore_score',
                    'nutriscore_grade',
-                   'magasins',
-                   'description',
-                   'brand']
+                   'stores',
+                   'generic_name_fr',
+                   'brands']
 
 FIELDS_FROM_API_PRODUCTS = ['_id',
                             'product_name_fr',
@@ -39,5 +39,10 @@ CATEGORIES_VISIBLE = [
     "en:fruit-jams",
     "en:farming-products",
     "en:legumes-and-their-products",
-    "en:pastas"
+    "en:pastas",
+    "en:fruit-based-beverages",
+    "en:frozen-desserts",
+    "en:pasteurized-cheeses",
+    "en:artisanal-spirits",
+    "en:colas"
 ]
