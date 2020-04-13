@@ -48,7 +48,7 @@ def main():
             category.name,
             res.status_code))
         contents = res.json()
-        products = [Product(**content)
+        products = [Product(category.id_category, **content)
                     for content in contents['products']
                     if Product.check_all_fields(content)]
         my_db.insert_multi_rows(products)

@@ -18,6 +18,7 @@ class Category(Entity):
 
     def __init__(self, **categories):
         Entity.__init__(self)
+        # id comes from the API otherwise it is id_category
         if 'id' in categories:
             self.id_category = categories['id']
         else:
@@ -28,8 +29,12 @@ class Category(Entity):
         self.visible = int(self.id_category in c.CATEGORIES_VISIBLE)
 
     @classmethod
-    def get_categories(cls, db):
-        rows = db.get_rows('categories', order_by='name')
+    def get_categories(cls, my_db):
+        """
+        retrieve categories
+        and return an array of Category instances
+        """
+        rows = my_db.get_rows('categories', order_by='name')
         categories = [Category(**data) for data in rows]
         return categories
 

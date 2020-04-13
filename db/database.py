@@ -8,7 +8,10 @@ from mysql.connector import Error
 
 
 class DataBaseOC:
-
+    """
+    Class to connect to the database
+    and manipulate the data
+    """
     def __init__(self, **connect_params):
         self._con = None
         if 'host' in connect_params:
@@ -42,6 +45,7 @@ class DataBaseOC:
             database=self._dbname)
 
     def disconnect(self):
+        """ disconnect to the database """
         if self._con:
             self._con.close()
 
@@ -84,6 +88,10 @@ class DataBaseOC:
             print("Something went wrong: {}".format(err))
 
     def insert_multi_rows(self, data, table=None):
+        """
+        insert from an array of objects
+        in the associated table
+        """
         if not data:
             return "Aucun élément à insérer"
         if table is None:
@@ -99,6 +107,10 @@ class DataBaseOC:
             print("Something went wrong: {}".format(err))
 
     def get_rows(self, table, query=None, order_by=None):
+        """
+        execute a query in table [table] or by executing the query [query]
+        fetchall() returns a dictionary
+        """
         if query is None:
             query = "SELECT * FROM %s " % table
         if order_by is not None:

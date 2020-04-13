@@ -43,6 +43,5 @@ CATEGORIES_VISIBLE = [
     "en:fruit-based-beverages",
     "en:frozen-desserts",
     "en:pasteurized-cheeses",
-    "en:artisanal-spirits",
     "en:colas"
 ]
