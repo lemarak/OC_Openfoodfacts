@@ -66,3 +66,9 @@ class Product(Entity):
                               query=query)
         substitutes = [Product(self.category, **data) for data in rows]
         return substitutes
+
+    def save_substitute(self, my_db, id_user):
+        """
+        save a product in table favorites
+        """
+        pass
