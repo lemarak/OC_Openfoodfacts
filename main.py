@@ -45,7 +45,7 @@ def main():
             pass
         else:
             break
-    print("Bye !")
+    print("\nBye !\n")
 
 
 def main_menu():
@@ -125,7 +125,7 @@ def loop_menu(data):
     loop until the entry is correct
     and return the selected object
     """
-    print("0 - menu précédent")
+    print("0 - <--- menu précédent <---")
     while True:
         try:
             response = int(input("Votre choix : "))

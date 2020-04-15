@@ -12,6 +12,7 @@ class DataBaseOC:
     Class to connect to the database
     and manipulate the data
     """
+
     def __init__(self, **connect_params):
         self._con = None
         if 'host' in connect_params:
@@ -85,7 +86,9 @@ class DataBaseOC:
             self.cursor.execute(query)
             self._con.commit()
         except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+            print("Something went wrong in insert table {}: {}".format(
+                table,
+                err))
 
     def insert_multi_rows(self, data, table=None):
         """
@@ -99,22 +102,25 @@ class DataBaseOC:
         sql_values = ",".join(
             [element.values_in_sql for element in data]
         )
-        query = "INSERT INTO %s VALUES %s" % (table, sql_values)
+        query = "INSERT IGNORE INTO %s VALUES %s" % (table, sql_values)
         try:
             self.cursor.execute(query)
             self._con.commit()
         except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+            print("Something went wrong in insert table {}: {}".
+                  format(table, err))
 
-    def get_rows(self, table, query=None, order_by=None):
+    def get_rows(self, table, query=None, order_by=None, clause=None):
         """
         execute a query in table [table] or by executing the query [query]
         fetchall() returns a dictionary
         """
         if query is None:
             query = "SELECT * FROM %s " % table
-        if order_by is not None:
-            query += " ORDER BY %s" % order_by
+            if clause is not None:
+                query += " WHERE %s" % clause
+            if order_by is not None:
+                query += " ORDER BY %s" % order_by
         try:
             self.cursor.execute(query)
             records = self.cursor.fetchall()

@@ -20,7 +20,7 @@ class Category(Entity):
         Entity.__init__(self)
         # id comes from the API otherwise it is id_category
         if 'id' in categories:
-            self.id_category = categories['id']
+            self.id_category = categories['id'][:250]
         else:
             self.id_category = categories['id_category']
         self.name = "%s" % categories['name'][:100]
@@ -34,7 +34,9 @@ class Category(Entity):
         retrieve categories
         and return an array of Category instances
         """
-        rows = my_db.get_rows('categories', order_by='name')
+        rows = my_db.get_rows('categories',
+                              order_by='name',
+                              clause="visible = 1")
         categories = [Category(**data) for data in rows]
         return categories
 
