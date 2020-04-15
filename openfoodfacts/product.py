@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-class Product
+Model Product
 """
 
 from openfoodfacts.entity import Entity
@@ -16,7 +16,7 @@ class Product(Entity):
     FIELDS = c.FIELDS_PRODUCTS
     FIELDS_FROM_API = c.FIELDS_FROM_API_PRODUCTS
 
-    def __init__(self, category, **product):
+    def __init__(self, category=None, **product):
         Entity.__init__(self)
         # _id comes from the API otherwise it is id_product
         if '_id' in product:
@@ -31,7 +31,18 @@ class Product(Entity):
         self.brands = product['brands']
         self.name = product['product_name_fr']
         # self.url = product['']
+        # TODO: category --> property
         self.category = category
+
+    def __str__(self):
+        str_to_displays = "{} ({})\nnutriscore: {} ({})\nmagasins: {}\n"
+        return str_to_displays.format(
+            self.name,
+            self.generic_name_fr,
+            self.nutriscore_grade.upper(),
+            self.nutriscore_score,
+            self.stores
+        )
 
     @classmethod
     def get_products_by_category(cls, my_db, id_category):
@@ -66,9 +77,3 @@ class Product(Entity):
                               query=query)
         substitutes = [Product(self.category, **data) for data in rows]
         return substitutes
-
-    def save_substitute(self, my_db, id_user):
-        """
-        save a product in table favorites
-        """
-        pass

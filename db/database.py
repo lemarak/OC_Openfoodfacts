@@ -90,7 +90,7 @@ class DataBaseOC:
                 table,
                 err))
 
-    def insert_multi_rows(self, data, table=None):
+    def insert(self, data, table=None):
         """
         insert from an array of objects
         in the associated table

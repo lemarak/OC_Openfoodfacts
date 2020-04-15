@@ -7,6 +7,8 @@ main program
 from db.database import DataBaseOC
 from openfoodfacts.category import Category
 from openfoodfacts.product import Product
+from openfoodfacts.favorite import Favorite
+from openfoodfacts.user import User
 from common import config as c
 
 
@@ -19,6 +21,10 @@ def main():
                      'password': c.PWD,
                      'database': c.DB_NAME}
     my_db = DataBaseOC(**param_connect)
+
+    # only one user for now
+    user = User.get_user(my_db, 'test')
+    print("\n", user.name, "est connecté.")
 
     menu_next = 0
 
@@ -37,12 +43,22 @@ def main():
                 elif menu == 3:
                     # display substitutes, select and return a substitute
                     substitute, menu_next = display_substitutes(my_db, product)
-                    print(substitute)  # TODO: save substitute in favorites
+                    if substitute:
+                        favorite = Favorite(substitute, user)
+                        my_db.insert([favorite])
+                        menu = 2
                 else:
                     break
+                # menu_next = -1 if back else 1
                 menu += menu_next
         elif response_menu == 2:  # menu, displays favorites
-            pass
+            favorites = Favorite.get_favorites_user(my_db, user)
+            print("\n*********** Favoris *************\n")
+            if favorites:
+                for favorite in favorites:
+                    print(favorite.product)
+            else:
+                print('Pas de favoris !')
         else:
             break
     print("\nBye !\n")
@@ -107,15 +123,7 @@ def display_substitutes(my_db, product):
     number = 1
     # displays substitutes
     for substitute in substitutes:
-        str_to_displays = "{} - {}\n{}\nnutriscore: {}({})\nmagasins: {}\n"
-        print(str_to_displays.format(number,
-                                     substitute.name,
-                                     substitute.generic_name_fr,
-                                     substitute.nutriscore_grade.upper(),
-                                     substitute.nutriscore_score,
-                                     substitute.stores
-                                     )
-              )
+        print(number, '-', substitute)
         number += 1
     return loop_menu(substitutes)
 

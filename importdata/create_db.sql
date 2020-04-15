@@ -73,11 +73,13 @@ DROP TABLE IF EXISTS `oc_openfoodfacts`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `oc_openfoodfacts`.`users` (
   `id_user` INT NOT NULL AUTO_INCREMENT,
-  `user_name` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
   `password` BINARY(60) NULL,
   PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
 
+INSERT INTO `oc_openfoodfacts`.`users` (`login`, `name`, `password`) VALUES ('test', 'Utilisateur test', '$2y$10$O7LoyXL3mCtLZp5.Lfn4ReiKPhtw5.pp6J11wNZONh.YgS9eV1TA.');
 
 -- -----------------------------------------------------
 -- Table `oc_openfoodfacts`.`favorites`

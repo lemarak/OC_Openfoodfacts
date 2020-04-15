@@ -32,6 +32,8 @@ FIELDS_FROM_API_PRODUCTS = ['_id',
                             'generic_name_fr',
                             'brands']
 
+FIELDS_FAVORITES = ['id_user', 'id_product']
+
 
 # Categories
 CATEGORIES_VISIBLE = [

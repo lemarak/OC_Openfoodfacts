@@ -4,7 +4,6 @@ script to import data from API
 and fill the bdd
 """
 import requests
-import sys  # to delete
 
 from db.database import DataBaseOC
 from openfoodfacts.category import Category
@@ -33,7 +32,8 @@ def main():
     contents_unique = list({v['id']: v for v in contents['tags']}.values())
     # create list of Category to insert in bdd
     categories = [Category(**content) for content in contents_unique]
-    my_db.insert_multi_rows(categories)
+    print(categories[0])
+    my_db.insert(categories)
 
     # products by category
     categories = [data for data in categories
@@ -45,7 +45,7 @@ def main():
                           tag_contains_0=contains& \
                           tag_0=%s& \
                           sort_by=unique_scans_n& \
-                          page_size=100& \
+                          page_size=50& \
                           json=1& \
                           page=1" % (category.id_category)
         res = requests.get(str_requests.replace(" ", ""))
@@ -59,14 +59,14 @@ def main():
         products = [Product(category.id_category, **content)
                     for content in contents_unique
                     if Product.check_all_fields(content)]
-        my_db.insert_multi_rows(products)
+        my_db.insert(products)
 
         # insert into cat_prod
         cat_prod = [CatProd(
             **{"id_category": category.id_category,
                "id_product": product.id_product})
-            for product in products]
-        my_db.insert_multi_rows(cat_prod)
+                    for product in products]
+        my_db.insert(cat_prod)
 
 
 if __name__ == "__main__":
