@@ -47,3 +47,7 @@ CATEGORIES_VISIBLE = [
     "en:pasteurized-cheeses",
     "en:colas"
 ]
+
+
+# View
+TITLE_APP = "OpenFoodFacts"

@@ -9,7 +9,6 @@ from openfoodfacts.category import Category
 from openfoodfacts.product import Product
 from openfoodfacts.favorite import Favorite
 from openfoodfacts.user import User
-from view.mainapplication import MainApplication
 from common import config as c
 
 
@@ -30,11 +29,7 @@ def main():
     menu_next = 0
 
     while True:
-        m_menu = MainApplication()
-        m_menu.title(c.TITLE_APP)
-        m_menu.mainloop()
-
-        response_menu = int(main_menu()) 
+        response_menu = int(main_menu())
         menu = 1
         if response_menu == 1:  # Menu find a substitute
             while True:
