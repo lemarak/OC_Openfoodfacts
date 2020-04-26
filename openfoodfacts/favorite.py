@@ -19,7 +19,7 @@ class Favorite(Entity):
         self.user = user
 
     def __repr__(self):
-        str_to_displays = "user: {} ({}) \nproduit: {}"
+        str_to_displays = "user: {} ({}) \nproduit: {}\n"
         return str_to_displays.format(self.user.name,
                                       self.user.login,
                                       self.product.product_name_fr)

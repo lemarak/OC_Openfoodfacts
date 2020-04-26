@@ -31,14 +31,14 @@ class Product(Entity):
         self.brands = product['brands']
         self.name = product['product_name_fr']
         # self.url = product['']
-        # TODO: category --> property
         self.category = category
 
     def __str__(self):
-        str_to_displays = "{} ({})\nnutriscore: {} ({})\nmagasins: {}\n"
+        str_to_displays = "{} ({})\n{}\nnutriscore: {} ({})\nmagasins: {}\n"
         return str_to_displays.format(
             self.name,
             self.generic_name_fr,
+            self.brands,
             self.nutriscore_grade.upper(),
             self.nutriscore_score,
             self.stores

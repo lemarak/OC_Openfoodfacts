@@ -45,7 +45,7 @@ def main():
                           tag_contains_0=contains& \
                           tag_0=%s& \
                           sort_by=unique_scans_n& \
-                          page_size=50& \
+                          page_size=20& \
                           json=1& \
                           page=1" % (category.id_category)
         res = requests.get(str_requests.replace(" ", ""))
