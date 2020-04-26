@@ -15,6 +15,8 @@ class Entity:
 
     @property
     def repr_values(self):
+        """
+        """
         return [getattr(self, field) for field in self.FIELDS]
 
     @property

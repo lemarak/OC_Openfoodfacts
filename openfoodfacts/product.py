@@ -34,10 +34,11 @@ class Product(Entity):
         self.category = category
 
     def __str__(self):
-        str_to_displays = "{} ({})\n{}\nnutriscore: {} ({})\nmagasins: {}\n"
+        str_to_displays = "{}\n({})\nmarque : {}\n \
+            nutriscore: {} ({})\nmagasins: {}\n"
         return str_to_displays.format(
             self.name,
-            self.generic_name_fr,
+            self.generic_name_fr[:100],
             self.brands,
             self.nutriscore_grade.upper(),
             self.nutriscore_score,
@@ -48,7 +49,6 @@ class Product(Entity):
     def get_products_by_category(cls, my_db, id_category):
         """
         collects all products in the category
-        find_good=True if we want to get substitutes
         """
         query = """
                 SELECT * FROM products as p
@@ -63,6 +63,10 @@ class Product(Entity):
         return products
 
     def get_substitutes(self, my_db):
+        """
+        collects five substitutes from a product
+        """
+
         query = """
                 SELECT * FROM products as p
                 INNER JOIN cat_prod as cp

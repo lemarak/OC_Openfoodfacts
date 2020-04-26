@@ -9,7 +9,9 @@ from common import config as c
 
 
 class Favorite(Entity):
-
+    """
+    Class representing favorites
+    """
     TABLE = 'favorites'
     FIELDS = c.FIELDS_FAVORITES
 
@@ -26,10 +28,17 @@ class Favorite(Entity):
 
     @property
     def id_product(self):
+        """
+        property: returns the id_product of the favorite
+        """
         return self.product.id_product
 
     @property
     def id_user(self):
+        """
+        property: Returns the user number 
+        who bookmarked this product
+        """
         return self.user.id_user
 
     @classmethod

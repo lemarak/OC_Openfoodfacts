@@ -27,6 +27,3 @@ class User:
             return User(**row[0])
         else:
             return False
-
-    def get_user_favorites(self):
-        pass
