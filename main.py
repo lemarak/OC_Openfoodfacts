@@ -66,8 +66,14 @@ def main():
         # save substitute
         elif root.status == 4:
             favorite = Favorite(root.product, user)
-            my_db.insert([favorite])
-            view_products.frame_comment("Produit enregistré...")
+            clause_where = "id_product = {} AND id_user = {}".format(
+                favorite.id_product, favorite.id_user
+            )
+            if not my_db.get_rows("favorites", clause=clause_where):
+                my_db.insert([favorite])
+                view_products.frame_comment("Produit enregistré...")
+            else:
+                view_products.frame_comment("!!! Produit déjà enregistré !!!")
             root.status = 0
 
         # root.mainloop()

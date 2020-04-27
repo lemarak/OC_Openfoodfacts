@@ -1,7 +1,8 @@
 # coding: utf-8
 
 """
-Model Product
+Model FavorProductite
+associated with the products table
 """
 
 from openfoodfacts.entity import Entity

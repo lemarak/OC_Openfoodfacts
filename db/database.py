@@ -128,18 +128,3 @@ class DataBaseOC:
         except Error as error_text:
             print("Error reading data from MySQL table", error_text)
             return False
-
-
-def main():
-    """
-    main function
-    """
-    param_connect = {'username': 'oc_projet5',
-                     'password': 'OC123456',
-                     'database': 'oc_openfoodfacts'}
-    my_db = DataBaseOC(**param_connect)
-    print(my_db)
-
-
-if __name__ == "__main__":
-    main()

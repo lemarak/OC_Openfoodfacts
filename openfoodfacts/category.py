@@ -1,7 +1,8 @@
 # coding: utf-8
 
 """
-Model Category and CatProd
+Models Category and CatProd
+associated with the categories and catprod tables
 """
 
 from openfoodfacts.entity import Entity

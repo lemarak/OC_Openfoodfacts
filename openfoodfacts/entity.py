@@ -1,8 +1,18 @@
 # coding: utf-8
+"""
+Parent class of
+    Favorite
+    Category
+    Product
+    CatProd
+    (Classes associated with a table)
+"""
 
 
 class Entity:
-
+    """
+    Parent class representing the data model
+    """
     TABLE = ''
     FIELDS = []
     FIELDS_FROM_API = []
@@ -16,13 +26,14 @@ class Entity:
     @property
     def repr_values(self):
         """
+        return list of values to insert from classes attributes
         """
         return [getattr(self, field) for field in self.FIELDS]
 
     @property
     def values_in_sql(self):
         """
-            create sql string for insert
+        create sql string for insert, format list of values
         """
         values = [str(value) for value in self.repr_values]
         values = "%s" % values

@@ -59,6 +59,7 @@ class MainFrame(tk.Frame):
         tk.Frame.__init__(self, root)
         self.root = root
         self.label = None
+        self.label_comment = None
 
     def clear_frame(self):
         """
@@ -85,16 +86,18 @@ class MainFrame(tk.Frame):
         """
         Displays a comment in the bottom of the frame
         """
-        self.label = tk.Label(
+        if self.label_comment:
+            self.label_comment.destroy()
+        self.label_comment = tk.Label(
             self,
             fg="darkgreen",
             text=text_title)
-        self.label.pack(side=tk.BOTTOM, pady=3)
+        self.label_comment.pack(side=tk.BOTTOM, pady=3)
 
 
 class MenuFrame(MainFrame):
     """
-    Class representing the frame menu
+    Child Class representing the frame menu
     """
 
     def __init__(self, root):
@@ -146,7 +149,7 @@ class MenuFrame(MainFrame):
 
 class CategoriesFrame(MainFrame):
     """
-    Class to implement the categories window
+    Child Class to implement the categories window
     """
 
     def __init__(self, root):
@@ -187,7 +190,7 @@ class CategoriesFrame(MainFrame):
 
 class ProductsFrame(MainFrame):
     """
-    Class to implement the products,
+    Child Class to implement the products,
     favorites and substitutes windows
     """
 

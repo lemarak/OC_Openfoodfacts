@@ -22,6 +22,9 @@ class User:
 
     @classmethod
     def get_user(cls, my_db, login):
+        """
+        Returns a user from his login
+        """
         row = my_db.get_rows('users', clause="login = '%s'" % login)
         if row:
             return User(**row[0])

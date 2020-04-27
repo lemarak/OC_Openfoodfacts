@@ -2,6 +2,7 @@
 
 """
 Model Favorite
+associated with the favorites table
 """
 from openfoodfacts.entity import Entity
 from openfoodfacts.product import Product
@@ -36,7 +37,7 @@ class Favorite(Entity):
     @property
     def id_user(self):
         """
-        property: Returns the user number 
+        property: Returns the user number
         who bookmarked this product
         """
         return self.user.id_user

@@ -4,13 +4,13 @@
 CONSTANTS for program
 """
 
-# Database
+# Database parameters
 HOST = 'localhost'
 USER_NAME = 'oc_projet5'
 PWD = 'OC123456'
 DB_NAME = 'oc_openfoodfacts'
 
-# Fields
+# Fields of each table, also attributes of associated classes
 FIELDS_CATEGORY = ['id_category',
                    'name',
                    'products',
@@ -35,7 +35,7 @@ FIELDS_FROM_API_PRODUCTS = ['_id',
 FIELDS_FAVORITES = ['id_user', 'id_product']
 
 
-# Categories
+# Categories that appear in the app
 CATEGORIES_VISIBLE = [
     "en:salted-spreads",
     "en:fruit-jams",
