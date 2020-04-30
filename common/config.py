@@ -51,3 +51,6 @@ CATEGORIES_VISIBLE = [
 
 # View
 TITLE_APP = "OpenFoodFacts"
+
+# URL fr Openfoodfacts
+URL_FR = "https://fr.openfoodfacts.org/produit/"

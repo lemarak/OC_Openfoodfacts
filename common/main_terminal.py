@@ -4,28 +4,15 @@
 main program
 """
 
-from db.database import DataBaseOC
 from openfoodfacts.category import Category
 from openfoodfacts.product import Product
 from openfoodfacts.favorite import Favorite
-from openfoodfacts.user import User
-from common import config as c
 
 
-def main():
+def main(my_db, user):
     """
     main function
     """
-    # connect to database
-    param_connect = {'username': c.USER_NAME,
-                     'password': c.PWD,
-                     'database': c.DB_NAME}
-    my_db = DataBaseOC(**param_connect)
-
-    # only one user for now
-    user = User.get_user(my_db, 'test')
-    print("\n", user.name, "est connecté.")
-
     menu_next = 0
 
     while True:
@@ -144,7 +131,3 @@ def loop_menu(data):
             print("Choix incorrect")
         except ValueError:
             print("Entrez un nombre.")
-
-
-if __name__ == "__main__":
-    main()

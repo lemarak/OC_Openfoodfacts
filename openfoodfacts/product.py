@@ -31,20 +31,31 @@ class Product(Entity):
         self.generic_name_fr = product['generic_name_fr']
         self.brands = product['brands']
         self.name = product['product_name_fr']
-        # self.url = product['']
         self.category = category
 
     def __str__(self):
-        str_to_displays = "{}\n({})\nmarque : {}\n \
-            nutriscore: {} ({})\nmagasins: {}\n"
+        str_to_displays = """{}({})
+        marque : {}
+        nutriscore: {} ({})
+        magasins: {}
+        {}
+        """
         return str_to_displays.format(
             self.name,
             self.generic_name_fr[:100],
             self.brands,
             self.nutriscore_grade.upper(),
             self.nutriscore_score,
-            self.stores
+            self.stores,
+            self.url
         )
+
+    @property
+    def url(self):
+        """
+        get and return the product url in openfoodfacts
+        """
+        return c.URL_FR + self.id_product
 
     @classmethod
     def get_products_by_category(cls, my_db, id_category):
