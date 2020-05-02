@@ -1,5 +1,8 @@
 # coding: utf-8
 
+"""
+main program, User-run program
+"""
 from db.database import DataBaseOC
 
 from openfoodfacts.user import User
@@ -10,6 +13,9 @@ from common import config as c
 
 
 def main():
+    """
+    main function
+    """
     # connect to database
     param_connect = {'username': c.USER_NAME,
                      'password': c.PWD,
@@ -44,7 +50,7 @@ def main_menu():
     while True:
         response = input("Votre choix : ")
         if response in ('1', '2', '3'):
-            return int(response)
+            return response
         print("Choix incorrect")
 
 

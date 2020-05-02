@@ -7,7 +7,7 @@ main program
 from openfoodfacts.category import Category
 from openfoodfacts.product import Product
 from openfoodfacts.favorite import Favorite
-from view.mainapplication import *
+from view.mainapplication import MainApplication
 
 
 def main(my_db, user):

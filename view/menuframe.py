@@ -1,5 +1,11 @@
 # coding: utf-8
 
+"""
+Class inheriting from the mainframe class
+for displaying menu
+"""
+
+
 import tkinter as tk
 
 from .mainframe import MainFrame

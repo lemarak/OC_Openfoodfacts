@@ -1,5 +1,10 @@
 # coding: utf-8
 
+"""
+Class inheriting from the mainframe class
+for displaying categories
+"""
+
 import tkinter as tk
 
 from .mainframe import MainFrame

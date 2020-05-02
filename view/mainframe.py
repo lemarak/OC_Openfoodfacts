@@ -1,5 +1,9 @@
 # coding: utf-8
+"""
+Parent class inheriting from tk.Frame
+and representing the characteristics of a Frame
 
+"""
 import tkinter as tk
 
 

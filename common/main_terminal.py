@@ -105,6 +105,12 @@ def select_products(my_db, id_category):
 
 
 def display_substitutes(my_db, product):
+    """
+    Displays the substitutes of a product (5 products max)
+    and returns the selected product
+    (product instance)
+    """
+
     print("\n" * 2)
     substitutes = product.get_substitutes(my_db)
     number = 1
