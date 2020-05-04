@@ -24,7 +24,7 @@ def main():
                      'database': c.DB_NAME}
     my_db = DataBaseOC(**param_connect)
 
-    # all categories
+    # request all categories from API
     res = requests.get('https://fr.openfoodfacts.org/categories.json')
     print("Categories - Status code:", res.status_code)
     contents = res.json()
@@ -32,10 +32,12 @@ def main():
     contents_unique = list({v['id']: v for v in contents['tags']}.values())
     # create list of Category to insert in bdd
     categories = [Category(**content) for content in contents_unique]
-    print(categories[0])
+
     my_db.insert(categories)
 
-    # products by category
+    # Products by category
+    # Only the categories defined
+    # in the constant c.CATEGORIES_VISIBLE
     categories = [data for data in categories
                   if data.id_category in c.CATEGORIES_VISIBLE]
     for category in categories:

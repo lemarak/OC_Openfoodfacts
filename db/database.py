@@ -92,7 +92,7 @@ class DataBaseOC:
 
     def insert(self, data, table=None):
         """
-        insert from an array of objects
+        insert from a list of objects
         in the associated table
         """
         if not data:

@@ -11,7 +11,7 @@ Parent class of
 
 class Entity:
     """
-    Parent class representing the data model
+    Parent class representing the controllers
     """
     TABLE = ''
     FIELDS = []

@@ -15,6 +15,7 @@ def main(my_db, user):
     main function
     """
 
+    # définition des variables
     root = MainApplication()
 
     view_categories = root.frame_categories
@@ -29,13 +30,14 @@ def main(my_db, user):
     view_products = root.frame_products
 
     while True:
-        # display categories
+        # display products by categories
         if root.status == 1:
             if root.category is not None:
                 products = Product.get_products_by_category(
                     my_db,
                     root.category
                 )
+                # display products
                 view_products.refresh_products(products)
                 root.display_frame(view_products)
                 root.category = None
