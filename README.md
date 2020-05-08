@@ -1,7 +1,7 @@
 # Utilisez les données publiques de l'OpenFoodFacts
 
 Programme qui interagit avec la base Open Food Facts pour en récupérer les aliments, les comparer et proposer à l'utilisateur un substitut plus sain à l'aliment qui lui fait envie.
-Two interfaces are available, terminal and graphics
+Deux interfaces sont disponibles, une interface de type terminal et une interface graphique.
 
 ## Installation
 
@@ -16,15 +16,15 @@ python main.py
 ```
 
 ## Prerequisites
+- requests
+- mysql.connector
+- tkinter
 
 
 ## Develop with
 - mysql
 - python
 - OpenFoodFact's api
-- requests
-- mysql.connector
-- tkinter
 
 
 ## User guide
